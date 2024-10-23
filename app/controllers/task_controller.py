@@ -1,7 +1,7 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from app.services.task_service import TaskService
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 # Namespace para Tareas
 task_ns = Namespace('tasks', description='Operaciones con las tareas')
@@ -28,7 +28,7 @@ task_response_model = task_ns.model('TaskResponse', {
 @task_ns.route('/')
 class TaskListResource(Resource):
     @jwt_required()
-    @task_ns.marshal_list_with(task_response_model)  # Serialización automática de la lista de tareas
+    @task_ns.marshal_list_with(task_response_model)
     def get(self):
         """Obtener todas las tareas"""
         tasks = TaskService.get_all_tasks()
@@ -36,9 +36,12 @@ class TaskListResource(Resource):
 
     @task_ns.expect(task_model, validate=True)
     @jwt_required()
-    @task_ns.marshal_with(task_response_model, code=201)  # Serialización automática de la tarea creada
+    @task_ns.marshal_with(task_response_model, code=201)
     def post(self):
         """Crear una nueva tarea"""
         data = request.get_json()
-        task = TaskService.create_task(data['title'], data['description'], data['category_ids'])
-        return task, 201 
+        try:
+            task = TaskService.create_task(data['title'], data.get('description'), data.get('category_ids', []))
+            return task, 201
+        except ValueError as e:
+            task_ns.abort(400, str(e))

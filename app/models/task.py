@@ -31,7 +31,7 @@ class Task(db.Model):
     # Relación muchos a muchos con categorías usando la tabla intermedia 'task_category'
     categories = db.relationship('Category', 
                                  secondary=task_category,  # Tabla intermedia que define la relación
-                                 backref=db.backref('tasks', lazy=True))  # Permite acceso inverso desde categorías a tareas
+                                 backref=db.backref('tasks', lazy='dynamic'))  # Permite acceso inverso desde categorías a tareas
 
     def __init__(self, title, description=None, completed=False):
         """

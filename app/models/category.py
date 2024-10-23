@@ -4,7 +4,7 @@ class Category(db.Model):
     """
     Modelo que representa una categoría en el sistema.
 
-    Cada categoría puede estar asociada a varias tareas u otros elementos, ayudando a organizarlos por grupos temáticos o funcionales.
+    Cada categoría puede estar asociada a varias tareas, ayudando a organizarlas por grupos temáticos o funcionales.
 
     Atributos:
         id (int): Identificador único de la categoría (clave primaria).

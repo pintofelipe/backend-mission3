@@ -48,16 +48,17 @@ def create_app():
     )
 
     # Importamos los controladores y namespaces que organizan las rutas/endpoints de la API
-    from .controllers.user_controller import user_ns  # Controlador para la gestión de usuarios
-    from .controllers.auth_controller import auth_ns  # Controlador para la autenticación
-    from .controllers.role_controller import role_ns  # Controlador para la gestión de roles
+    
+    #from .controllers.user_controller import user_ns  # Controlador para la gestión de usuarios
+    #from .controllers.auth_controller import auth_ns  # Controlador para la autenticación
+    #from .controllers.role_controller import role_ns  # Controlador para la gestión de roles
     from .controllers.task_controller import task_ns  # Controlador para la gestión de tareas
     from .controllers.category_controller import category_ns  # Controlador para la gestión de categorías
 
     # Registramos cada namespace (grupo de rutas) en la API
-    api.add_namespace(user_ns, path='/users')  # Registrar el namespace de usuarios en /users
-    api.add_namespace(auth_ns, path='/auth')  # Registrar el namespace de autenticación en /auth
-    api.add_namespace(role_ns, path='/roles')  # Registrar el namespace de roles en /roles
+    #api.add_namespace(user_ns, path='/users')  # Registrar el namespace de usuarios en /users
+    #api.add_namespace(auth_ns, path='/auth')  # Registrar el namespace de autenticación en /auth
+    #api.add_namespace(role_ns, path='/roles')  # Registrar el namespace de roles en /roles
     api.add_namespace(task_ns, path='/tasks')  # Registrar el namespace de tareas en /tasks
     api.add_namespace(category_ns, path='/categories')  # Registrar el namespace de categorías en /categories
 
