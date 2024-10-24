@@ -39,24 +39,24 @@ def create_app():
 
     # Configuramos la API Flask-RESTX, que nos ayuda a crear endpoints RESTful con documentación Swagger integrada
     api = Api(
-        app,  # La aplicación Flask en la que registramos la API
-        title='API de Usuarios y Tareas',  # Título para la documentación Swagger
-        version='1.0',  # Versión de la API
-        description='API para gestión de usuarios, tareas, y roles',  # Descripción de la API
-        authorizations=authorizations,  # Añadimos la configuración de JWT a la API
-        security='Bearer'  # Define que los endpoints por defecto usan el esquema de seguridad JWT
+    app,  # La aplicación Flask en la que registramos la API
+    title='API de Gestión de Proyectos',  # Título actualizado para la documentación Swagger
+    version='1.0',  # Versión de la API
+    description='API para la gestión de usuarios, tareas y categorías dentro de un sistema de proyectos.',  # Descripción más específica
+    authorizations=authorizations,  # Añadimos la configuración de JWT a la API
+    security='Bearer'  # Define que los endpoints por defecto usan el esquema de seguridad JWT
     )
 
     # Importamos los controladores y namespaces que organizan las rutas/endpoints de la API
     
-    #from .controllers.user_controller import user_ns  # Controlador para la gestión de usuarios
+    from .controllers.user_controller import user_ns  # Controlador para la gestión de usuarios
     #from .controllers.auth_controller import auth_ns  # Controlador para la autenticación
     #from .controllers.role_controller import role_ns  # Controlador para la gestión de roles
     from .controllers.task_controller import task_ns  # Controlador para la gestión de tareas
     from .controllers.category_controller import category_ns  # Controlador para la gestión de categorías
 
     # Registramos cada namespace (grupo de rutas) en la API
-    #api.add_namespace(user_ns, path='/users')  # Registrar el namespace de usuarios en /users
+    api.add_namespace(user_ns, path='/users')  # Registrar el namespace de usuarios en /users
     #api.add_namespace(auth_ns, path='/auth')  # Registrar el namespace de autenticación en /auth
     #api.add_namespace(role_ns, path='/roles')  # Registrar el namespace de roles en /roles
     api.add_namespace(task_ns, path='/tasks')  # Registrar el namespace de tareas en /tasks
