@@ -7,18 +7,7 @@ task_category = db.Table('task_category',
 )
 
 class Task(db.Model):
-    """
-    Modelo que representa una tarea en el sistema.
-
-    Cada tarea puede estar asociada a múltiples categorías y contiene información como el título, descripción y estado de completada.
-
-    Atributos:
-        id (int): Identificador único de la tarea (clave primaria).
-        title (str): Título de la tarea.
-        description (str): Descripción detallada de la tarea (opcional).
-        completed (bool): Indica si la tarea está completada o no.
-        categories (list): Relación muchos a muchos con la tabla de categorías.
-    """
+  
     
     __tablename__ = 'tasks'  # Nombre de la tabla en la base de datos
 
@@ -26,7 +15,12 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Clave primaria de la tabla
     title = db.Column(db.String(120), nullable=False)  # Título de la tarea, no puede ser nulo
     description = db.Column(db.String(255), nullable=True)  # Descripción de la tarea, es opcional
-    completed = db.Column(db.Boolean, default=False, nullable=False)  # Estado de la tarea (completada o no), por defecto False
+    status = db.Column(db.String(50), nullable=False, default='pending') # Estdo de la tarea (Pending, completed)
+    due_date = db.Column(db.DateTime, nullable=True) # Fecha limite para completar la tarea
+    create_at = db.Column(db.DateTime, ) # Fecha de creacion de la tarea
+
+
+
 
     # Relación muchos a muchos con categorías usando la tabla intermedia 'task_category'
     categories = db.relationship('Category', 
